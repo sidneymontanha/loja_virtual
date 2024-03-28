@@ -1,4 +1,9 @@
-console.log('loja montanha')
+const formatCurrency = (number) => {
+    return number.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    })
+}
 
 const getProducts = async () => {
     const response = await fetch('js/products.json')
@@ -11,8 +16,7 @@ const generateCard = async () => {
     console.log(products)
     products.map(product => {
         let card = document.createElement('div')
-        card.classList.add('card__produto')
-        
+        card.classList.add('card__produto') 
         card.innerHTML = `
             <figure>
                 <img src="images/${product.image}" alt="${product.product_name}">
@@ -21,7 +25,7 @@ const generateCard = async () => {
                 <h4>${product.product_name}</h4>
                 <h5>${product.product_model}</h5>
             </div>
-            <h6>${product.price}</h6>
+            <h6>${formatCurrency(product.price)}</h6>
             `
      const listaProdutos = document.querySelector('.lista__produtos')
      listaProdutos.appendChild(card)
