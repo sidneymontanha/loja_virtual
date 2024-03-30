@@ -137,6 +137,10 @@
     .card__produto_detalhes h4 {
         font-size: 18px;
         line-height: 28px;
+        white-space: nowrap;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .card__produto_detalhes h5 {
@@ -275,6 +279,7 @@
 
         .detalhes h4 {
             font-size: 24px;
+            
         }
 
         .detalhes h5 {
@@ -301,6 +306,23 @@
         .numeros {
             height: 40px;
             border: 1px solid #ccc;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .numeros:hover {
+            border-color: var(--dark);
+            cursor: pointer;
+        }
+
+        .radio {
+            display: none;
+        }
+
+        .selecionado {
+            border-color: var(--dark);
         }
 
         .descricao {
