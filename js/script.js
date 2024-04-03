@@ -1,11 +1,15 @@
 const botaoVoltar = document.querySelector('.voltar')
 const sectionDetalhamentoproduto = document.querySelector('.produto__detalhes')
 const sectionProdutos = document.querySelector('.produtos')
+const sectionHero = document.querySelector('.hero')
 
-botaoVoltar.style.display = 'none'
-sectionDetalhamentoproduto.style.display = 'none'
+const ocultaBotaoEsecao = () => {
+    botaoVoltar.style.display = 'none'
+    sectionDetalhamentoproduto.style.display = 'none'
+}
 
-
+ocultaBotaoEsecao()
+ 
 const formatCurrency = (number) => {
     return number.toLocaleString('pt-BR', {
         style: 'currency',
@@ -21,11 +25,9 @@ const getProducts = async () => {
 
 const generateCard = async () => {
     const products = await getProducts()
-    console.log(products)
     products.map(product => {
         let card = document.createElement('div')
         card.id = product.id
-        console.log(card.id)
         card.classList.add('card__produto') 
         card.innerHTML = `
             <figure>
@@ -39,19 +41,7 @@ const generateCard = async () => {
             `
      const listaProdutos = document.querySelector('.lista__produtos')
      listaProdutos.appendChild(card)
-
-     card.addEventListener('click', (e) => {
-        sectionProdutos.style.display = 'none'
-        botaoVoltar.style.display = 'block'
-        sectionDetalhamentoproduto.style.display = 'grid'
-        
-       const cardClicado = e.currentTarget
-       const idProduto = cardClicado.id
-       const produtoClicado = products.find( product => product.id == idProduto)
-        
-        preencherDadosProduto(produtoClicado)
-     })
-
+     preecherCard(card, products)
     })
 }
 
@@ -59,8 +49,8 @@ generateCard()
 
 botaoVoltar.addEventListener('click', () => {
     sectionProdutos.style.display = 'flex'
-        botaoVoltar.style.display = 'none'
-        sectionDetalhamentoproduto.style.display = 'none'
+    ocultaBotaoEsecao()
+
 })
 
 const preencherDadosProduto = (product) => {
@@ -69,7 +59,7 @@ const preencherDadosProduto = (product) => {
     imagesArray.map( image => {
         image.src = `./images/${product.image}`
     })
-
+    document.querySelector('.detalhes span').innerHTML = product.id
     document.querySelector('.detalhes h4').innerHTML = product.product_name
     document.querySelector('.detalhes h5').innerHTML = product.product_model
     document.querySelector('.detalhes h6').innerHTML = formatCurrency(product.price)
@@ -84,3 +74,37 @@ details.addEventListener('toggle', () => {
     summary.classList.toggle('icone-recolher')
 })
 
+const preecherCard = (card,products) => {
+    card.addEventListener('click', (e) => {
+        sectionProdutos.style.display = 'none'
+        botaoVoltar.style.display = 'block'
+        sectionDetalhamentoproduto.style.display = 'grid'
+        
+       const cardClicado = e.currentTarget
+       const idProduto = cardClicado.id
+       const produtoClicado = products.find( product => product.id == idProduto)
+        
+        preencherDadosProduto(produtoClicado)
+     })
+}
+
+// aula 11
+
+const btnCarrinho = document.querySelector('.btn__carrinho .icone')
+const sectionCarrinho = document.querySelector('.carrinho')
+
+btnCarrinho.addEventListener('click', () => {
+    sectionCarrinho.style.display = 'block'
+    sectionHero.style.display = 'none'
+    sectionProdutos.style.display = 'none'
+    sectionDetalhamentoproduto.style.display = 'none'
+})
+
+const btnHome = document.querySelector('.link_home')
+btnHome.addEventListener('click', (e) => {
+    e.preventDefault()
+    sectionCarrinho.style.display = 'none'
+    sectionHero.style.display = 'flex'
+    sectionProdutos.style.display = 'flex'
+    ocultaBotaoEsecao()
+})
