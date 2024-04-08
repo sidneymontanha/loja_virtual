@@ -230,12 +230,59 @@ btnContinuarCarrinho.addEventListener('click', () => {
 
 })
 
-const btnFinalizarCadastro = document.querySelector('.btn_finalizar_cadastro')
-btnFinalizarCadastro.addEventListener('click', () => {
-    ocultarElemento(sectionIdentificacao)
-    mostrarElemento(sectionPagamento)
+const formularioIdentificacao = document.querySelector('.form_identificacao')
+const todosCamposObrigatorios = document.querySelectorAll('[required]')
+const todosCampos = document.querySelectorAll('.form_identificacao input')
+
+const pegarDados = () => {
+    const dados = {}
+    todosCampos.forEach( campo => {
+        dados[campo.id] = campo.value.trim()
+    })
+    return dados
+}
+
+// validacao onBlur
+todosCamposObrigatorios.forEach( campo => {
+
+    const emailRegex = /\S+@\S+\.\S+/
+
+    campo.addEventListener('blur', (e) => {
+
+        if(campo.value !== "" && e.target.type !== "email") {
+            campo.classList.add('campo-valido')
+            campo.classList.remove('campo-invalido')
+            campo.nextElementSibling.textContent = ''
+        } else {
+            campo.classList.add('campo-invalido')
+            campo.classList.remove('campo-valido')
+            campo.nextElementSibling.textContent = `${campo.id} é obrigatório`
+        }
+
+        if(emailRegex.test(e.target.value)) {
+            campo.classList.add('campo-valido')
+            campo.classList.remove('campo-invalido')
+            campo.nextElementSibling.textContent = ''
+        }
+
+        if(e.target.type === "checkbox" && !e.target.checked) {
+            campo.parentElement.classList.add('erro')
+        } else {
+            campo.parentElement.classList.remove('erro')
+        }
+
+    })
 
 })
+
+
+const btnFinalizarCadastro = document.querySelector('.btn_finalizar_cadastro')
+btnFinalizarCadastro.addEventListener('click', (event) => {
+    event.preventDefault()
+
+    console.log(pegarDados())
+})
+
 
 const btnFinalizarCompra = document.querySelector('.btn_finalizar_compra')
 btnFinalizarCompra.addEventListener('click', () => {

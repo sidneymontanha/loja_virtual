@@ -640,3 +640,16 @@
     .pagamento h3 {
         margin-block: 10px;
     }
+
+    .campo-invalido {
+        border-color: red !important;
+    }
+
+    .campo-valido {
+        border-color: green !important;
+    }
+
+    .erro {
+        color: red;
+        margin-left: 5px;
+    }
