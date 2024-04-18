@@ -231,7 +231,7 @@ btnContinuarCarrinho.addEventListener('click', () => {
 })
 
 const formularioIdentificacao = document.querySelector('.form_identificacao')
-const todosCamposObrigatorios = document.querySelectorAll('[required]')
+const todosCamposObrigatorios = document.querySelectorAll('.form_identificacao input[required] select[required]')
 const todosCampos = document.querySelectorAll('.form_identificacao input')
 
 const pegarDados = () => {
@@ -275,13 +275,53 @@ todosCamposObrigatorios.forEach( campo => {
 
 })
 
+const validacaoDoFormulario = () => {
+    
+    let formularioValido = true
+
+    todosCamposObrigatorios.forEach(campoObrigatorio => {
+        
+        const isEmpty = campoObrigatorio.value.trim() === ''
+        const isNotChecked = campoObrigatorio.type === 'checkbox' && !campoObrigatorio.checked
+        
+        if(isEmpty) {
+            campoObrigatorio.classList.add('campo-invalido')
+            campoObrigatorio.nextElementSibling.textContent = `${campoObrigatorio.id} obrigatorio`
+            formularioValido = false
+        } else {
+            campoObrigatorio.classList.add('campo-valido')
+            campoObrigatorio.classList.remove('campo-invalido')
+            campoObrigatorio.nextElementSibling.textContent = ''
+        }
+
+        if(isNotChecked) {
+            campoObrigatorio.parentElement.classList.add('erro')
+            formularioValido = false
+        } else {
+            campoObrigatorio.parentElement.classList.remove('erro')
+        }
+  
+    })
+
+    return formularioValido
+
+}
 
 const btnFinalizarCadastro = document.querySelector('.btn_finalizar_cadastro')
 btnFinalizarCadastro.addEventListener('click', (event) => {
+    
     event.preventDefault()
+    
+    // validacoes
+    validacaoDoFormulario()
 
-    console.log(pegarDados())
+    // pegar dados
+    if(validacaoDoFormulario()) {
+        console.log(pegarDados())
+    }  
 })
+    
+	
 
 
 const btnFinalizarCompra = document.querySelector('.btn_finalizar_compra')
@@ -291,3 +331,42 @@ btnFinalizarCompra.addEventListener('click', () => {
     mostrarElemento(sectionProdutos, 'flex')
 
 })
+
+// aula 22
+const buscarCep = async (cep) => {
+    const url = `https://viacep.com.br/ws/${cep}/json/`
+    const response = await fetch(url)
+    const data = await response.json()
+    return data
+}
+
+document.querySelector('#cep1').addEventListener('blur', async (e) => {
+    const cep = e.target.value
+    if (!cep) {
+        limparCampos()
+        return
+    }
+    const resposta = await buscarCep(cep)
+    if (resposta.erro) {
+        limparCampos()
+        return
+    }
+    preencherCampos(resposta)
+    document.querySelector('#numero').focus()
+})
+  
+const limparCampos = () => {
+    document.querySelector('#endereco').value = ''
+    document.querySelector('#bairro').value = ''
+    document.querySelector('#cidade').value = ''
+    document.querySelector('#estado').value = ''
+}
+  
+const preencherCampos = (resposta) => {
+    document.querySelector('#endereco').value = resposta.logradouro
+    document.querySelector('#bairro').value = resposta.bairro
+    document.querySelector('#cidade').value = resposta.localidade
+    document.querySelector('#estado').value = resposta.uf
+}
+
+
