@@ -23,12 +23,14 @@ botaoVoltar.addEventListener('click', () => {
 
 const btnCarrinho = document.querySelector('.btn__carrinho .icone')
 btnCarrinho.addEventListener('click', () => {
-    mostrarElemento(sectionCarrinho)
-    ocultarElemento(sectionHero)
-    ocultarElemento(sectionProdutos)
-    ocultarElemento(sectionDetalhesProduto)
-    ocultarElemento(sectionIdentificacao)
-    ocultarElemento(sectionPagamento)
+    if(numeroItens.innerHTML > 0) {
+        mostrarElemento(sectionCarrinho)
+        ocultarElemento(sectionHero)
+        ocultarElemento(sectionProdutos)
+        ocultarElemento(sectionDetalhesProduto)
+        ocultarElemento(sectionIdentificacao)
+        ocultarElemento(sectionPagamento)
+    }
 })
 
 const btnHome = document.querySelector('.link_home')
@@ -231,7 +233,7 @@ btnContinuarCarrinho.addEventListener('click', () => {
 })
 
 const formularioIdentificacao = document.querySelector('.form_identificacao')
-const todosCamposObrigatorios = document.querySelectorAll('.form_identificacao input[required] select[required]')
+const todosCamposObrigatorios = document.querySelectorAll('.form_identificacao [required]')
 const todosCampos = document.querySelectorAll('.form_identificacao input')
 
 const pegarDados = () => {
@@ -284,27 +286,29 @@ const validacaoDoFormulario = () => {
         const isEmpty = campoObrigatorio.value.trim() === ''
         const isNotChecked = campoObrigatorio.type === 'checkbox' && !campoObrigatorio.checked
         
-        if(isEmpty) {
-            campoObrigatorio.classList.add('campo-invalido')
-            campoObrigatorio.nextElementSibling.textContent = `${campoObrigatorio.id} obrigatorio`
-            formularioValido = false
-        } else {
-            campoObrigatorio.classList.add('campo-valido')
-            campoObrigatorio.classList.remove('campo-invalido')
-            campoObrigatorio.nextElementSibling.textContent = ''
-        }
-
-        if(isNotChecked) {
-            campoObrigatorio.parentElement.classList.add('erro')
-            formularioValido = false
-        } else {
-            campoObrigatorio.parentElement.classList.remove('erro')
-        }
-  
+        campoObrigatorio.addEventListener('blur', (e) => {
+            if(isEmpty) {
+                campoObrigatorio.classList.add('campo-invalido')
+                campoObrigatorio.nextElementSibling.textContent = `${campoObrigatorio.id} obrigatorio`
+                formularioValido = false
+            } else {
+                campoObrigatorio.classList.add('campo-valido')
+                campoObrigatorio.classList.remove('campo-invalido')
+                campoObrigatorio.nextElementSibling.textContent = ''
+            }
+    
+            if(isNotChecked) {
+                campoObrigatorio.parentElement.classList.add('erro')
+                formularioValido = false
+            } else {
+                campoObrigatorio.parentElement.classList.remove('erro')
+            }
+        })
+        
     })
 
     return formularioValido
-
+    
 }
 
 const btnFinalizarCadastro = document.querySelector('.btn_finalizar_cadastro')
