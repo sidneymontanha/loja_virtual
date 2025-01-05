@@ -239,7 +239,11 @@ const todosCampos = formularioIdentificacao.querySelectorAll('.form_identificaca
 const pegarDados = () => {
     const dados = {}
     todosCampos.forEach( campo => {
-        dados[campo.id] = campo.value.trim()
+        const valor = campo.value.trim()
+        if(valor){
+            dados[campo.id] =  valor
+        }
+        
     })
     return dados
 }
@@ -284,28 +288,22 @@ const validacaoDoFormulario = () => {
 
     todosCamposObrigatorios.forEach(campoObrigatorio => {
         
-        const isEmpty = campoObrigatorio.value.trim() === ''
+        const isEmpty = campoObrigatorio.value.trim()
         const isNotChecked = campoObrigatorio.type === 'checkbox' && !campoObrigatorio.checked
         
-        campoObrigatorio.addEventListener('blur', (e) => {
-            if(isEmpty) {
-                campoObrigatorio.classList.add('campo-invalido')
-                campoObrigatorio.nextElementSibling.textContent = `${campoObrigatorio.id} obrigatorio`
-                formularioValido = false
-            } else {
-                campoObrigatorio.classList.add('campo-valido')
-                campoObrigatorio.classList.remove('campo-invalido')
-                campoObrigatorio.nextElementSibling.textContent = ''
-            }
-    
-            if(isNotChecked) {
-                campoObrigatorio.parentElement.classList.add('erro')
-                formularioValido = false
-            } else {
-                campoObrigatorio.parentElement.classList.remove('erro')
-            }
-        })
         
+        if(isEmpty === "" || isNotChecked) {
+            campoObrigatorio.classList.add('campo-invalido')
+            campoObrigatorio.classList.remove('campo-valido')
+            campoObrigatorio.nextElementSibling.textContent = `${campoObrigatorio.id} obrigatorio`
+            formularioValido = false
+        } else {
+            campoObrigatorio.classList.add('campo-valido')
+            campoObrigatorio.classList.remove('campo-invalido')
+            campoObrigatorio.nextElementSibling.textContent = ''
+        }
+    
+             
     })
 
     return formularioValido
@@ -317,14 +315,13 @@ btnFinalizarCadastro.addEventListener('click', (event) => {
     
     event.preventDefault()
     
-    // validacoes
-    validacaoDoFormulario()
-
     // pegar dados
     if(validacaoDoFormulario()) {
-        console.log(pegarDados())
+        const dados = pegarDados()
+        console.log(dados)
+
     }else{
-        console.log('nao esta preencido')
+        console.log('formulario não preenchido')
     } 
 })
     
@@ -349,7 +346,7 @@ const buscarCep = async (cep) => {
 
 document.querySelector('#cep1').addEventListener('blur', async (e) => {
     const cep = e.target.value
-    if (!cep) {
+    if (!cep || cep.length !== 8 || isNaN(cep)) {
         limparCampos()
         return
     }
