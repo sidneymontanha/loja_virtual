@@ -233,8 +233,8 @@ btnContinuarCarrinho.addEventListener('click', () => {
 })
 
 const formularioIdentificacao = document.querySelector('.form_identificacao')
-const todosCamposObrigatorios = document.querySelectorAll('.form_identificacao [required]')
-const todosCampos = document.querySelectorAll('.form_identificacao input')
+const todosCamposObrigatorios = formularioIdentificacao.querySelectorAll('.form_identificacao [required]')
+const todosCampos = formularioIdentificacao.querySelectorAll('.form_identificacao input')
 
 const pegarDados = () => {
     const dados = {}
@@ -269,6 +269,7 @@ todosCamposObrigatorios.forEach( campo => {
 
         if(e.target.type === "checkbox" && !e.target.checked) {
             campo.parentElement.classList.add('erro')
+            campo.nextElementSibling.textContent = `${campo.id} Concordo com a Política de Privacidade e os Termos de Uso.*`
         } else {
             campo.parentElement.classList.remove('erro')
         }
@@ -322,7 +323,9 @@ btnFinalizarCadastro.addEventListener('click', (event) => {
     // pegar dados
     if(validacaoDoFormulario()) {
         console.log(pegarDados())
-    }  
+    }else{
+        console.log('nao esta preencido')
+    } 
 })
     
 	

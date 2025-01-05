@@ -48,7 +48,16 @@
 
 .btn__carrinho {
     position: relative;
-    display: inline-block;
+    display: flex;
+}
+
+.btn__carrinho_icone{
+    position: relative;
+}
+
+.btn__carrinho_user{
+    display: flex;
+    align-items: center;
 }
 
 .btn__carrinho span {
@@ -97,7 +106,6 @@
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center bottom;
-
         display: flex;
         align-items: center;
         justify-content: center;
