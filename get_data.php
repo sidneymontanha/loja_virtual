@@ -1,6 +1,6 @@
 <?php
 
-require './conect.php'; // Inclui a conexão com o banco de dados
+require 'conexao.php'; // Inclui a conexão com o banco de dados
 
 // Função para buscar categorias
 function getCategorias($pdo) {

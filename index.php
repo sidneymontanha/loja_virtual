@@ -1,3 +1,10 @@
+<?php
+
+//include_once 'cadastrarUsuario.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -254,53 +261,54 @@
             <form class="form_identificacao">
                 <div class="input">
                     <label for="nome">Nome completo*</label>
-                    <input type="text" id="nome" class="" required />
+                    <input type="text" id="nome" class="dn" required />
                     <span class="erro"></span>
                 </div>
                 <div class="input">
                     <label for="email">E-mail*</label>
-                    <input type="email" id="email" class="" required />
+                    <input type="email" id="email" class="dn" required />
                     <span class="erro"></span>
                 </div>
                 <div class="input">
                     <label for="tel">Telefone*</label>
-                    <input type="tel" id="tel" class="" placeholder="99 99999-9999" required />
+                    <input type="tel" id="telefone" class="dn" placeholder="99 99999-9999" required />
                     <span class="erro"></span>
                 </div>
                 <div class="input">
                     <label for="cep1">CEP*</label>
-                    <input type="text" id="cep1" class="" maxlength="9" placeholder="99999-999" required />
+                    <input type="text" id="cep" class="dn" maxlength="9" placeholder="99999-999" required />
                     <span class="erro"></span>
                 </div>
                 <div class="input">
                     <label for="endereco">Endereco*</label>
-                    <input type="text" id="endereco" class="" required />
+                    <input type="text" id="endereco" class="dn" required />
                     <span class="erro"></span>
                 </div>
                 <div class="input">
                     <label for="numero">Número*</label>
-                    <input type="text" id="numero" class="" maxlength="10" required />
+                    <input type="text" id="numero" class="dn" maxlength="10" required />
                     <span class="erro"></span>
                 </div>
                 <div class="input">
                     <label for="bairro">Bairro*</label>
-                    <input type="text" id="bairro" class="" required />
+                    <input type="text" id="bairro" class="dn" required />
                     <span class="erro"></span>
                 </div>
                 <div class="input">
                     <label for="complemento">Complemento</label>
-                    <input type="text" id="complemento" class="" />
+                    <input type="text" id="complemento" class="dn" />
                     <span class="erro"></span>
                 </div>
                 <div class="input">
                     <label for="cidade">Cidade*</label>
-                    <input type="text" id="cidade" class="" required />
+                    <input type="text" id="cidade" class="dn" required />
                     <span class="erro"></span>
                 </div>
+               
                 <div class="input">
                     <label for="estado">Estado*</label>
-                    <!-- <input type="text" id="estado" class="" maxlength="2" required /> -->
-                    <select id='estado' name='estado' required>
+                    
+                    <select type="select" id="estado" name="estado" class="dn">
                         <option value=''>Selecione um estado</option>
                         <option value='AC'>Acre</option>
                         <option value='AL'>Alagoas</option>
@@ -335,7 +343,7 @@
                 
                 </div>
                 <div class="bloco">
-                    <input type="checkbox" id="concordo" class="checkbox" required />
+                    <input type="checkbox" id="concordo" class="dn checkbox" required />
                     <label for="concordo">Concordo com a Política de Privacidade e os Termos de Uso.*</label>
                     <span class="erro"></span>
                 </div>

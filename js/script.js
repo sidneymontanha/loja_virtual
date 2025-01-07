@@ -234,23 +234,55 @@ btnContinuarCarrinho.addEventListener('click', () => {
 
 const formularioIdentificacao = document.querySelector('.form_identificacao')
 const todosCamposObrigatorios = formularioIdentificacao.querySelectorAll('.form_identificacao [required]')
-const todosCampos = formularioIdentificacao.querySelectorAll('.form_identificacao input')
+const todosCampos = formularioIdentificacao.querySelectorAll('.form_identificacao .dn')
+
 
 const pegarDados = () => {
     const dados = {}
     todosCampos.forEach( campo => {
         const valor = campo.value.trim()
         if(valor){
-            dados[campo.id] =  valor
+            dados[campo.id] =   valor
         }
         
     })
+
+    console.log(dados)
     return dados
+}
+
+
+
+
+
+
+const enviarDadosParaBanco = async (dados) => {
+    try {
+        console.log('Enviando dados:', dados) // Log dos dados enviados
+        
+        const response = await fetch('cadastrarUsuario.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dados)
+        })
+
+        // Verificar se houve erro no HTTP
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`)
+        }
+
+        const resultado = await response.json()
+        console.log('Resposta do servidor:', resultado)
+    } catch (error) {
+        console.log('Erro ao enviar dados para o banco:', error)
+    }
 }
 
 // validacao onBlur
 todosCamposObrigatorios.forEach( campo => {
-
+    
     const emailRegex = /\S+@\S+\.\S+/
 
     campo.addEventListener('blur', (e) => {
@@ -262,6 +294,7 @@ todosCamposObrigatorios.forEach( campo => {
         } else {
             campo.classList.add('campo-invalido')
             campo.classList.remove('campo-valido')
+            
             campo.nextElementSibling.textContent = `${campo.id} é obrigatório`
         }
 
@@ -269,6 +302,12 @@ todosCamposObrigatorios.forEach( campo => {
             campo.classList.add('campo-valido')
             campo.classList.remove('campo-invalido')
             campo.nextElementSibling.textContent = ''
+        }
+
+        if(e.target.type === "estado"){
+            campo.classList.add('campo-valido')
+            campo.classList.remove('campo-invalido')
+            campo.nextElementSibling.textContent = '' 
         }
 
         if(e.target.type === "checkbox" && !e.target.checked) {
@@ -318,7 +357,10 @@ btnFinalizarCadastro.addEventListener('click', (event) => {
     // pegar dados
     if(validacaoDoFormulario()) {
         const dados = pegarDados()
-        console.log(dados)
+        //console.log(dados)
+        enviarDadosParaBanco(dados)
+        ocultarElemento(sectionIdentificacao)
+        mostrarElemento(sectionPagamento)
 
     }else{
         console.log('formulario não preenchido')
@@ -344,7 +386,7 @@ const buscarCep = async (cep) => {
     return data
 }
 
-document.querySelector('#cep1').addEventListener('blur', async (e) => {
+document.querySelector('#cep').addEventListener('blur', async (e) => {
     const cep = e.target.value
     if (!cep || cep.length !== 8 || isNaN(cep)) {
         limparCampos()
