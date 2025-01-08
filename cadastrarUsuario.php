@@ -1,23 +1,25 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
-header('Content-Type: application/json');
 
-require 'conexao.php';
+include_once 'conexao.php';
 
 
 
 // Receber os dados do POST
-$data = json_decode(file_get_contents("php://input"), true);
+$data = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-print_r($data);
+$retona = [
+    'status' => true, 
+    'nome' => $data['nome']
+];
+
+echo json_encode($retona);
 
 /*if (!$data) {
     echo json_encode(["status" => "erro", "mensagem" => "Nenhum dado recebido."]);
     exit;
-}*/
+}
 
 
 
@@ -54,4 +56,4 @@ if ($stmt->execute()) {
 }
 
 $stmt->close();
-$pdo->close();
+$pdo->close();*/

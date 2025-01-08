@@ -247,38 +247,28 @@ const pegarDados = () => {
         
     })
 
-    console.log(dados)
+    
     return dados
 }
 
-
-
-
-
-
-const enviarDadosParaBanco = async (dados) => {
-    try {
-        console.log('Enviando dados:', dados) // Log dos dados enviados
-        
+const enviarDados = async (dados) =>{
+    try{
+        //console.log('enviando dados:', dados)
         const response = await fetch('cadastrarUsuario.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dados)
+            body: dados
         })
+        const resposta = await response.json()
+        console.log(resposta)
+    }catch{
 
-        // Verificar se houve erro no HTTP
-        if (!response.ok) {
-            throw new Error(`Erro HTTP: ${response.status}`)
-        }
-
-        const resultado = await response.json()
-        console.log('Resposta do servidor:', resultado)
-    } catch (error) {
-        console.log('Erro ao enviar dados para o banco:', error)
     }
 }
+
+
+
+
+
 
 // validacao onBlur
 todosCamposObrigatorios.forEach( campo => {
@@ -358,7 +348,7 @@ btnFinalizarCadastro.addEventListener('click', (event) => {
     if(validacaoDoFormulario()) {
         const dados = pegarDados()
         //console.log(dados)
-        enviarDadosParaBanco(dados)
+        enviarDados(dados)
         ocultarElemento(sectionIdentificacao)
         mostrarElemento(sectionPagamento)
 

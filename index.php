@@ -8,7 +8,9 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
@@ -56,6 +58,7 @@
             <p>A loja montanha é fruto de uma parceria forte com vários setores do comercio</p>
         </div>
     </section>
+    
     <main>
         <section class="produtos">
             <div class="heading__produtos">
@@ -70,28 +73,28 @@
         <section class="produto__detalhes">
             <div class="produto__detalhes_imagens">
                 <figure>
-                    <img src="http://placehold.co/300x200" alt=""/>
+                    <img src="" alt=""/>
                 </figure>
                 <figure>
-                    <img src="http://placehold.co/300x200" alt=""/>
+                    <img src="" alt=""/>
                 </figure>
                 <figure>
-                    <img src="http://placehold.co/300x200" alt=""/>
+                    <img src="" alt=""/>
                 </figure>
                 <figure>
-                    <img src="http://placehold.co/300x200" alt=""/>
+                    <img src="" alt=""/>
                 </figure>
                 <figure>
-                    <img src="http://placehold.co/300x200" alt=""/>
+                    <img src="" alt=""/>
                 </figure>
                 <figure>
-                    <img src="http://placehold.co/300x200" alt=""/>
+                    <img src="" alt=""/>
                 </figure>
                 <figure>
-                    <img src="http://placehold.co/300x200" alt=""/>
+                    <img src="" alt=""/>
                 </figure>
                 <figure>
-                    <img src="http://placehold.co/300x200" alt=""/>
+                    <img src="" alt=""/>
                 </figure>
             </div>
             <div class="produto__detalhes_info">
@@ -170,9 +173,10 @@
                     <summary class="icone-expandir">Calcular o frete e entrega</summary>
                     <p>Calcule o frete e o prazo de entrega para sua região</p>
 
-                    <label for="">Insira seu cep</label>
+                    
                     <div class="input">
-                        <input type="text" placeholder="00000-000"/>
+                        <label for="cep1">Insira seu cep</label>
+                        <input type="text" id="cep1" placeholder="00000-000"/>
                         <button type="button">Calcular</button>
                     </div>
 
@@ -270,12 +274,12 @@
                     <span class="erro"></span>
                 </div>
                 <div class="input">
-                    <label for="tel">Telefone*</label>
+                    <label for="telefone">Telefone*</label>
                     <input type="tel" id="telefone" class="dn" placeholder="99 99999-9999" required />
                     <span class="erro"></span>
                 </div>
                 <div class="input">
-                    <label for="cep1">CEP*</label>
+                    <label for="cep">CEP*</label>
                     <input type="text" id="cep" class="dn" maxlength="9" placeholder="99999-999" required />
                     <span class="erro"></span>
                 </div>
@@ -308,7 +312,7 @@
                 <div class="input">
                     <label for="estado">Estado*</label>
                     
-                    <select type="select" id="estado" name="estado" class="dn">
+                    <select type="select" id="estado" class="dn">
                         <option value=''>Selecione um estado</option>
                         <option value='AC'>Acre</option>
                         <option value='AL'>Alagoas</option>
@@ -354,6 +358,7 @@
         </section>
         
         <section class="pagamento">
+        
             <h2>Pagamento</h2>
             <p>* campos obrigatórios</p>
             
